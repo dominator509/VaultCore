@@ -1,0 +1,17 @@
+[package]
+name = "vaultcore-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "vaultcore-cli"
+path = "src/main.rs"
+
+[dependencies]
+vaultcore-core = { path = "../core" }
+
+[lints]
+workspace = true

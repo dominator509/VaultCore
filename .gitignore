@@ -1,0 +1,13 @@
+/target/
+/app/dist/
+/app/node_modules/
+/app/test-results/
+/app/src-tauri/target/
+/.vaultcore-dev/
+/.tmp/
+/.codex/
+/.serena/
+*.log
+*.signed
+!tests/fixtures/*.signed
+

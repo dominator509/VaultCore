@@ -1,0 +1,21 @@
+[package]
+name = "vaultcore-builder"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "vaultcore-builder"
+path = "src/main.rs"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+vaultcore-core = { path = "../core" }
+
+[lints]
+workspace = true

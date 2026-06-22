@@ -1,0 +1,19 @@
+# TRACEABILITY.md
+
+| Row | Source | Requirement | Status | Evidence |
+|---|---|---|---|---|
+| L1 | SPEC-001 | Five roles are defined and enforced by domain role hierarchy semantics. | IMPLEMENTED | `crates/core/src/types/role.rs`; `./scripts/test-unit.sh` |
+| L2 | SPEC-001 | Eight secret types are defined with exact wire names. | IMPLEMENTED | `crates/core/src/types/secret_type.rs`; `./scripts/test-unit.sh` |
+| L3 | SPEC-001 | Lifecycle FSM legal and illegal transitions are enforced by pure domain code. | IMPLEMENTED | `crates/core/src/fsm.rs`; `./scripts/test-unit.sh` |
+| L4 | SPEC-006 | Stable redaction-safe error taxonomy is available to Builder, Verifier, and UI boundaries. | IMPLEMENTED | `crates/core/src/error.rs`; `./scripts/test-unit.sh` |
+| L5-I2 | ARCHITECTURE I-2 / ADR-0008 | Sealed crypto payload handling uses zeroizing wrappers and payload handles instead of plaintext-returning service responses. | VERIFIED | `crates/core/src/crypto/sealed.rs`; `crates/builder/src/service.rs`; `crates/tests/invariants/tests/builder_service.rs`; `./scripts/verify.sh` |
+| L5-I4 | SPEC-003 / ARCHITECTURE I-4 | Trinity Builder ↔ Verifier frames are signed, length-prefixed, replay-protected, and never carry plaintext payloads. | VERIFIED | `crates/core/src/trinity.rs`; `crates/builder/src/ipc.rs`; `crates/verifier/src/ipc.rs`; `crates/tests/invariants/tests/trinity_ipc.rs`; `./scripts/verify.sh` |
+| L5-I5 | SPEC-003 / ARCHITECTURE I-5 | Builder service operations authorize through the Verifier boundary and append audit intents for mutating/reveal operations. | VERIFIED | `crates/builder/src/service.rs`; `crates/tests/invariants/tests/builder_service.rs`; `./scripts/verify.sh` |
+| L5-I6 | ARCHITECTURE I-6 | SpecAnchor payloads are signed and tamper verification fails. | VERIFIED | `crates/core/src/specanchor/verify.rs`; `crates/cli/src/specanchor.rs`; `tests/fixtures/specanchor.signed`; `./scripts/verify.sh` |
+| L5-I7 | ARCHITECTURE I-7 | EP-004 command/service paths are local Tauri/Builder/Verifier paths with no network unlock, escrow, or vendor backdoor. | VERIFIED | `app/src-tauri/src/main.rs`; `crates/builder/src/service.rs`; `./scripts/verify.sh` |
+| L6-I1 | SPEC-002 / ARCHITECTURE I-1 | Payload persistence is restricted to opaque BLOB columns and purge tombstones payload material. | IMPLEMENTED | `crates/core/src/persistence/repo/secret_repo.rs`; `crates/core/tests/persistence_repos.rs`; `./scripts/test-integration.sh` |
+| L6-I3 | SPEC-002 / ARCHITECTURE I-3 | Metadata columns are indexed/searchable while payload columns are not indexed. | IMPLEMENTED | `crates/core/src/persistence/migrations/m0001_initial.rs`; `crates/core/tests/persistence_repos.rs`; `./scripts/test-integration.sh` |
+| L6-I8 | SPEC-002 / ARCHITECTURE I-8 | Audit rows are hash-chained and tamper detection rejects modified entries. | IMPLEMENTED | `crates/core/src/persistence/audit_chain.rs`; `crates/core/src/persistence/repo/audit_repo.rs`; `./scripts/test-integration.sh` |
+| UI-004 | SPEC-004 | Lock, unlock, list/search, reveal, copy, create, edit, rotate, soft-delete, purge, audit, health, settings, and lock flows are present in the Tauri React client. | VERIFIED | `app/src/routes/App.tsx`; `app/src/lib/tauri.ts`; `app/tests/e2e/*.spec.ts`; `./scripts/test-e2e.sh` |
+| UI-004-A11Y | SPEC-004 | Primary UI flows satisfy the EP-005 axe gate with zero serious/critical WCAG 2.1 AA violations. | VERIFIED | `app/tests/a11y/primary.spec.ts`; `pnpm --dir app test:a11y` |
+| UI-006 | SPEC-006 | UI maps typed VaultError payloads to stable redaction-safe user messages with support codes. | VERIFIED | `app/src/lib/errors.ts`; `app/tests/unit/ui-state.test.ts`; `pnpm --dir app test:unit` |

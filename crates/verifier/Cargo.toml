@@ -1,0 +1,20 @@
+[package]
+name = "vaultcore-verifier"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "vaultcore-verifier"
+path = "src/main.rs"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+vaultcore-core = { path = "../core" }
+
+[lints]
+workspace = true

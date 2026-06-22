@@ -1,0 +1,15 @@
+[package]
+name = "vaultcore-invariants"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+vaultcore-builder = { path = "../../builder" }
+vaultcore-core = { path = "../../core" }
+vaultcore-verifier = { path = "../../verifier" }
+
+[lints]
+workspace = true
