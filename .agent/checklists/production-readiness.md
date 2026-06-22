@@ -1,8 +1,9 @@
 # Production Readiness Checklist (VaultCore)
 
-Status: local evidence green; production launch NO-GO until owner approval, production signing credentials, release SpecAnchor signing, and multi-OS CI evidence are present.
+Status: local evidence green; production launch NO-GO until owner approval, production signing credentials, release SpecAnchor signing, and signed release artifact evidence are present.
 
 Last local evidence run: 2026-06-22.
+Last multi-OS CI verify run: GitHub Actions run `27940112544` on commit `2adc3051d8a7a511ee28804a7ff5e0b54afd8abd` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)`.
 
 Gate Evidence
 - [x] G1-A Foundation validation: `./scripts/verify.sh`
@@ -18,7 +19,7 @@ Gate Evidence
 - [x] G3-B Observability and health: `./scripts/smoke-test.sh`
 - [x] G3-C Local release artifacts and manifest: `./scripts/build.sh`
 - [x] G3-D Threat coverage: `cargo nextest run --test threats`
-- [ ] G3-E Production launch approval: pending owner approval, signing credentials, release SpecAnchor signing, and live multi-OS CI artifact evidence
+- [ ] G3-E Production launch approval: pending owner approval, signing credentials, release SpecAnchor signing, and signed release artifact evidence
 
 Functional
 - [x] All eight secret types supported
@@ -61,10 +62,10 @@ Observability
 - [x] Audit chain head visible
 
 Deployment
-- [ ] Signed Tauri bundles per platform pending production signing credentials and CI matrix
+- [ ] Signed Tauri bundles per platform pending production signing credentials and release artifact matrix
 - [x] SHA-256 manifest generated locally
 - [ ] SHA-256 manifest published pending owner-approved release
-- [ ] Reproducible build verified across multi-OS CI pending post-push evidence
+- [x] Multi-OS verify CI passed on GitHub Actions run `27940112544`
 
 Rollback
 - [x] Rollback steps documented and dry-run rehearsed

@@ -30,8 +30,8 @@
 ## Initial ADR Entries
 
 ### EP-010: Production Launch Approval Status
-- **Context:** EP-010 local readiness validation passed, but production launch requires owner approval, production signing credentials, release SpecAnchor signing, and multi-OS CI artifact evidence.
-- **Decision:** No production publish or updater-channel activation is approved in this thread. Local readiness evidence may be committed and pushed for CI review; launch remains NO-GO until the owner explicitly approves release-candidate entry and provides the approved release signing path.
+- **Context:** EP-010 local readiness validation passed, and GitHub Actions run `27940112544` passed the multi-OS verify gate for commit `2adc3051d8a7a511ee28804a7ff5e0b54afd8abd`; production launch still requires owner approval, production signing credentials, release SpecAnchor signing, and signed release artifact evidence.
+- **Decision:** No production publish or updater-channel activation is approved in this thread. Local readiness and multi-OS verify evidence may be committed and pushed for review; launch remains NO-GO until the owner explicitly approves release-candidate entry and provides the approved release signing path.
 - **Alternatives Considered:** Treat local green checks as release approval (rejected: violates EP-010 owner-approval gate and AGENTS.md production deployment STOP conditions).
 - **Consequences:** The repository can carry an honest readiness packet while preventing accidental publication, signing-key leakage, or updater-channel changes.
 - **Status:** Accepted for EP-010 gatekeeping

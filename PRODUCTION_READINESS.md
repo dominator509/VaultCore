@@ -4,6 +4,7 @@
 Status: local evidence green; production launch NO-GO.
 
 Last local evidence run: 2026-06-22.
+Last multi-OS CI verify run: GitHub Actions run `27940112544` on commit `2adc3051d8a7a511ee28804a7ff5e0b54afd8abd` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)`.
 
 Local commands completed:
 - `./scripts/preflight.sh`
@@ -15,10 +16,10 @@ Local commands completed:
 External launch blockers:
 - Owner approval to enter release-candidate launch and publish any updater channel is not recorded.
 - Production signing credentials are not present in the local checkout, and must not be committed.
-- Live GitHub Actions multi-OS release matrix evidence has not been collected after pushing the release-readiness commits.
+- Signed release artifact matrix evidence has not been collected because production signing and owner approval are still pending.
 - Release SpecAnchor signing with the project key remains an owner-controlled offline action.
 
-Recommended default: do not publish. Push the local evidence commits, let CI run, collect owner approval and signing material through the approved release process, then re-run this gate.
+Recommended default: do not publish. Keep the successful CI verify evidence, collect owner approval and signing material through the approved release process, run the signed release artifact matrix, then re-run this gate.
 
 ## Definition of Production Readiness
 VaultCore v1 is production-ready only when functional, test, security, privacy, performance, accessibility, observability, deployment, rollback, data, documentation, and support gates are all satisfied; every invariant I-1..I-8 has at least one passing enforcement test; and every threat T-001..T-023 is either mitigated with linked evidence or accepted as a documented residual risk.
