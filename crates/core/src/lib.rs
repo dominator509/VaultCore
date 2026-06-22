@@ -3,6 +3,7 @@
 pub mod crypto;
 pub mod error;
 pub mod fsm;
+pub mod obs;
 pub mod persistence;
 pub mod specanchor;
 pub mod trinity;

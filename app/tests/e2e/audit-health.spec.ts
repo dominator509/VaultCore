@@ -11,5 +11,5 @@ test("audit view and vault health surface chain status", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Vault Health" }),
   ).toBeVisible();
-  await expect(page.getByText("SpecAnchor")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "SpecAnchor" })).toBeVisible();
 });

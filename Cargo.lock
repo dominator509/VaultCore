@@ -4075,6 +4075,7 @@ version = "0.1.0"
 dependencies = [
  "argon2",
  "serde",
+ "serde_json",
  "vaultcore-core",
  "zeroize",
 ]
@@ -4120,6 +4121,7 @@ dependencies = [
 name = "vaultcore-verifier"
 version = "0.1.0"
 dependencies = [
+ "serde_json",
  "vaultcore-core",
 ]
 

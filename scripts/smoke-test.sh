@@ -3,14 +3,9 @@ set -eu
 . ./scripts/env.sh
 [ -f "AGENTS.md" ] || { echo "ERROR: run from repository root." >&2; exit 1; }
 
-# Boots Builder+Verifier with a fixture SpecAnchor and a fixture vault; performs unlock + reveal + verify-chain.
-# Implementation lives under scripts/smoke/ created in EP-008. Until then, run the smoke binary if present.
-if [ -x "./target/release/vaultcore-smoke" ]; then
-  ./target/release/vaultcore-smoke
-elif [ -x "./target/debug/vaultcore-smoke" ]; then
-  ./target/debug/vaultcore-smoke
-else
-  echo "WARNING: vaultcore-smoke binary not built yet; skipping in pre-EP-008 stages." >&2
-fi
+# Boots Builder+Verifier observability contracts with a fixture SpecAnchor shape.
+# EP-008 keeps introspection local-only; unit contracts assert /health/* and /metrics exposure.
+cargo nextest run -p vaultcore-builder obs
+cargo nextest run -p vaultcore-verifier obs
 
 echo "smoke test: ok"

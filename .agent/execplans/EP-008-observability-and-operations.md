@@ -60,16 +60,25 @@ After EP-004 onward. Reads OBSERVABILITY.md, SPEC-007.
 - Observability is additive; safe to rerun.
 
 ## 12. Progress
-- [ ] Milestone 1 complete
-- [ ] Milestone 2 complete
-- [ ] Milestone 3 complete
-- [ ] Milestone 4 complete
+- [x] Milestone 1 complete (`cargo nextest run -p vaultcore-core obs::redaction` passed)
+- [x] Milestone 2 complete (`./scripts/smoke-test.sh` passed)
+- [x] Milestone 3 complete (`pnpm --dir app test:e2e -- vault-health.spec.ts` passed)
+- [x] Milestone 4 complete (`./scripts/verify.sh && cargo nextest run --test no_network` passed)
 
 ## 13. Surprises & Discoveries
-- None yet.
+- Milestone 1 validation targets `vaultcore-core`, so the shared redaction filter belongs in `crates/core/src/obs` and builder/verifier emitters should consume it rather than each defining their own deny-list.
+- The pre-EP-008 smoke script skipped when no smoke binary existed. Milestone 2 replaced the skip with local-only Builder and Verifier observability contract tests.
+- The existing `audit-health.spec.ts` selector became ambiguous after adding a SpecAnchor alert message. Updated the test to target the SpecAnchor heading explicitly.
 
 ## 14. Decision Log
 - ADR-0010 (no remote telemetry) re-affirmed.
+- Added `crates/core/src/obs/*` and `crates/core/src/lib.rs` beyond the literal file list because EP-008 requires a central redaction filter and the Milestone 1 command validates the core crate.
+- Added `serde_json` to Builder and Verifier so their log emitters can call the shared core redaction filter without introducing a second logging format.
+- Added `crates/tests/invariants/tests/no_network.rs` beyond the literal file list because Milestone 4 requires the named `cargo nextest run --test no_network` sentinel.
+- Updated `app/tests/e2e/audit-health.spec.ts` beyond the literal file list to keep the existing EP-005/EP-007 health acceptance coverage valid after the new Vault Health alert text landed.
 
 ## 15. Outcomes & Retrospective
-- Pending execution.
+- EP-008 completed locally.
+- Structured log redaction, local health/metrics contract tests, Vault Health UI alerts, runbooks, and no-network sentinel coverage are implemented.
+- `./scripts/verify.sh && cargo nextest run --test no_network` exits successfully.
+- Known residual tooling note: Windows Tauri MSI bundling still reports `Access is denied. (os error 5)` during `build.sh`, and the script treats it as a non-fatal platform prerequisite issue before reporting `build: ok`.

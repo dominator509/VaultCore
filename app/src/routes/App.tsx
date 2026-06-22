@@ -11,6 +11,7 @@ import {
 } from "../lib/tauri";
 import { type FlowState, type View, visibleSecrets } from "../state/appState";
 import { StatusMessage } from "../components/StatusMessage";
+import { VaultHealth } from "../components/VaultHealth";
 
 const secretTypes: SecretType[] = [
   "API_KEY",
@@ -271,7 +272,7 @@ export function App() {
           />
         ) : null}
         {view === "health" ? (
-          <HealthView chainValid={chainValid} sessionId={sessionId} />
+          <VaultHealth chainValid={chainValid} sessionId={sessionId} />
         ) : null}
         {view === "settings" ? (
           <SettingsView
@@ -592,34 +593,6 @@ function AuditView({
             <p className="meta">{entry.result}</p>
           </article>
         ))}
-      </div>
-    </section>
-  );
-}
-
-function HealthView({
-  chainValid,
-  sessionId,
-}: {
-  chainValid: boolean | null;
-  sessionId: string;
-}) {
-  return (
-    <section className="panel stack" aria-labelledby="health-title">
-      <h2 id="health-title">{strings.healthTitle}</h2>
-      <div className="grid">
-        <div className="status-card">
-          <h3>{strings.specAnchor}</h3>
-          <p>verified</p>
-        </div>
-        <div className="status-card">
-          <h3>{strings.auditHead}</h3>
-          <p>{chainValid === false ? "invalid" : "valid"}</p>
-        </div>
-        <div className="status-card">
-          <h3>{strings.lastActivity}</h3>
-          <p>{sessionId}</p>
-        </div>
       </div>
     </section>
   );
