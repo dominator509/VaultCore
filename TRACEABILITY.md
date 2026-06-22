@@ -2,13 +2,13 @@
 
 | Row | Source | Requirement | Status | Evidence |
 |---|---|---|---|---|
-| L1 | SPEC-001 | Five roles are defined and enforced by domain role hierarchy semantics. | IMPLEMENTED | `crates/core/src/types/role.rs`; `./scripts/test-unit.sh` |
-| L2 | SPEC-001 | Eight secret types are defined with exact wire names. | IMPLEMENTED | `crates/core/src/types/secret_type.rs`; `./scripts/test-unit.sh` |
-| L3 | SPEC-001 | Lifecycle FSM legal and illegal transitions are enforced by pure domain code. | IMPLEMENTED | `crates/core/src/fsm.rs`; `./scripts/test-unit.sh` |
+| L1 | SPEC-001 | Five roles are defined and enforced by domain role hierarchy semantics. | VERIFIED + LOCAL GATE PASSED | `crates/core/src/types/role.rs`; `./scripts/verify.sh`; `cargo nextest run --test invariants` |
+| L2 | SPEC-001 | Eight secret types are defined with exact wire names. | VERIFIED + LOCAL GATE PASSED | `crates/core/src/types/secret_type.rs`; `./scripts/verify.sh`; `cargo nextest run --test invariants` |
+| L3 | SPEC-001 | Lifecycle FSM legal and illegal transitions are enforced by pure domain code. | VERIFIED + LOCAL GATE PASSED | `crates/core/src/fsm.rs`; `./scripts/verify.sh`; `cargo nextest run --test invariants` |
 | L3-AUTH-RBAC | SPEC-005 | Five-role authorization matrix is enforced by Verifier default-deny policy. | VERIFIED | `crates/verifier/src/policy.rs`; `cargo nextest run -p vaultcore-verifier policy` |
 | L3-AUTH-PATHS | SPEC-005 | Passkey, biometrics, and passphrase unlock paths validate local proofs without remote IdP or escrow. | VERIFIED | `crates/builder/src/auth/*.rs`; `pnpm --dir app test:e2e -- unlock-passkey.spec.ts`; `cargo nextest run -p vaultcore-builder auth` |
 | L3-AUTH-SESSION | SPEC-005 | Sessions enforce idle timeout, absolute timeout, immediate lock revocation, and exponential lockout. | VERIFIED | `crates/builder/src/session.rs`; `./scripts/verify.sh` |
-| L4 | SPEC-006 | Stable redaction-safe error taxonomy is available to Builder, Verifier, and UI boundaries. | IMPLEMENTED | `crates/core/src/error.rs`; `./scripts/test-unit.sh` |
+| L4 | SPEC-006 | Stable redaction-safe error taxonomy is available to Builder, Verifier, and UI boundaries. | VERIFIED + LOCAL GATE PASSED | `crates/core/src/error.rs`; `./scripts/verify.sh`; `cargo nextest run --test invariants` |
 | L5-I2 | ARCHITECTURE I-2 / ADR-0008 | Sealed crypto payload handling uses zeroizing wrappers and payload handles instead of plaintext-returning service responses. | VERIFIED | `crates/core/src/crypto/sealed.rs`; `crates/builder/src/service.rs`; `crates/tests/invariants/tests/builder_service.rs`; `./scripts/verify.sh` |
 | L5-I4 | SPEC-003 / ARCHITECTURE I-4 | Trinity Builder ↔ Verifier frames are signed, length-prefixed, replay-protected, and never carry plaintext payloads. | VERIFIED | `crates/core/src/trinity.rs`; `crates/builder/src/ipc.rs`; `crates/verifier/src/ipc.rs`; `crates/tests/invariants/tests/trinity_ipc.rs`; `./scripts/verify.sh` |
 | L5-I5 | SPEC-003 / ARCHITECTURE I-5 | Builder service operations authorize through the Verifier boundary and append audit intents for mutating/reveal operations. | VERIFIED | `crates/builder/src/service.rs`; `crates/tests/invariants/tests/builder_service.rs`; `./scripts/verify.sh` |
@@ -28,3 +28,5 @@
 | UI-004 | SPEC-004 | Lock, unlock, list/search, reveal, copy, create, edit, rotate, soft-delete, purge, audit, health, settings, and lock flows are present in the Tauri React client. | VERIFIED | `app/src/routes/App.tsx`; `app/src/lib/tauri.ts`; `app/tests/e2e/*.spec.ts`; `./scripts/test-e2e.sh` |
 | UI-004-A11Y | SPEC-004 | Primary UI flows satisfy the EP-005 axe gate with zero serious/critical WCAG 2.1 AA violations. | VERIFIED | `app/tests/a11y/primary.spec.ts`; `pnpm --dir app test:a11y` |
 | UI-006 | SPEC-006 | UI maps typed VaultError payloads to stable redaction-safe user messages with support codes. | VERIFIED | `app/src/lib/errors.ts`; `app/tests/unit/ui-state.test.ts`; `pnpm --dir app test:unit` |
+| READINESS-010-LOCAL | EP-010 / SPEC-008 | Local production-readiness evidence passes full verification, invariant, threat, and readiness scripts. | VERIFIED + LOCAL GATE PASSED | `PRODUCTION_READINESS.md`; `.agent/checklists/production-readiness.md`; `./scripts/verify.sh && cargo nextest run --test invariants && cargo nextest run --test threats`; `./scripts/production-readiness-check.sh` |
+| READINESS-010-LAUNCH | EP-010 / SPEC-008 | Production launch requires owner approval, production signing credentials, release SpecAnchor signing, and multi-OS CI artifact evidence. | NO-GO PENDING OWNER APPROVAL | `DECISIONS.md`; `PRODUCTION_READINESS.md`; `.agent/checklists/production-readiness.md` |

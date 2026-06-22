@@ -65,15 +65,20 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 - No destructive operations.
 
 ## 12. Progress
-- [ ] Milestone 1 complete
-- [ ] Milestone 2 complete
-- [ ] Milestone 3 complete
+- [x] Milestone 1 complete (`./scripts/verify.sh && cargo nextest run --test invariants && cargo nextest run --test threats` passed)
+- [x] Milestone 2 complete (`./scripts/production-readiness-check.sh` passed)
+- [ ] Milestone 3 blocked on owner approval, production signing credentials, release SpecAnchor signing, and live multi-OS CI artifact evidence
 
 ## 13. Surprises & Discoveries
-- None yet.
+- Local checks are green, but owner approval, production signing credentials, and live multi-OS CI evidence are not present in the local checkout.
+- `.agent/checklists/production-readiness.md` already existed, so EP-010 uses that checklist as the evidence packet instead of introducing a parallel readiness artifact.
 
 ## 14. Decision Log
-- Final owner approval and any accepted residual risks captured here.
+- Final owner approval is not recorded. Per EP-010 non-goals and AGENTS.md STOP conditions, no production publish, updater-channel activation, or release SpecAnchor signing was performed.
+- `DECISIONS.md` was updated to record the EP-010 NO-GO launch decision without fabricating owner approval.
+- `TRACEABILITY.md` now distinguishes local gate-passed evidence from the production launch gate, which remains pending owner approval and release-signing evidence.
 
 ## 15. Outcomes & Retrospective
-- Pending execution.
+- Local production-readiness evidence is green through Milestones 1 and 2.
+- Launch packet is prepared in `PRODUCTION_READINESS.md`, `.agent/checklists/production-readiness.md`, `DECISIONS.md`, and `TRACEABILITY.md`.
+- Production launch remains NO-GO until the owner approves release-candidate entry, provides the approved production signing path, completes release SpecAnchor signing, and confirms multi-OS CI artifact evidence.

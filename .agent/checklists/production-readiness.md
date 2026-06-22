@@ -1,61 +1,83 @@
 # Production Readiness Checklist (VaultCore)
 
+Status: local evidence green; production launch NO-GO until owner approval, production signing credentials, release SpecAnchor signing, and multi-OS CI evidence are present.
+
+Last local evidence run: 2026-06-22.
+
+Gate Evidence
+- [x] G1-A Foundation validation: `./scripts/verify.sh`
+- [x] G1-B Core domain invariants: `cargo nextest run --test invariants`
+- [x] G1-C Persistence and audit chain: `cargo nextest run --test invariants`
+- [x] G1-D Crypto and Trinity boundary: `cargo nextest run --test invariants`
+- [x] G1-E SpecAnchor verification fixtures: `./scripts/verify.sh`
+- [x] G1-F Audit immutability: `cargo nextest run --test invariants`
+- [x] G2-A Identity and local unlock paths: `./scripts/verify.sh`
+- [x] G2-B Session controls: `./scripts/verify.sh`
+- [x] G2-C Secret lifecycle hardening: `./scripts/verify.sh`
+- [x] G3-A UI acceptance and accessibility: `./scripts/verify.sh`
+- [x] G3-B Observability and health: `./scripts/smoke-test.sh`
+- [x] G3-C Local release artifacts and manifest: `./scripts/build.sh`
+- [x] G3-D Threat coverage: `cargo nextest run --test threats`
+- [ ] G3-E Production launch approval: pending owner approval, signing credentials, release SpecAnchor signing, and live multi-OS CI artifact evidence
+
 Functional
-- [ ] All eight secret types supported
-- [ ] All five roles enforced
-- [ ] Lifecycle FSM transitions implemented and tested
-- [ ] All primary UI flows present
+- [x] All eight secret types supported
+- [x] All five roles enforced
+- [x] Lifecycle FSM transitions implemented and tested
+- [x] All primary UI flows present
 
 Testing
-- [ ] All `./scripts/*` validation commands pass
-- [ ] Invariant suite (I-1..I-8) green
-- [ ] Threat coverage tests green or residual accepted
+- [x] Local validation chain passes through `./scripts/production-readiness-check.sh`
+- [x] Invariant suite (I-1..I-8) green
+- [x] Threat coverage tests green or residual accepted
 
 Security
-- [ ] No secrets/keys committed
-- [ ] Logs redacted (marker test green)
-- [ ] cargo deny + cargo audit + pnpm audit green or accepted
-- [ ] RBAC matrix complete
-- [ ] SpecAnchor verification not bypassed
+- [x] No secrets/keys committed
+- [x] Logs redacted (marker test green)
+- [x] cargo deny + cargo audit + pnpm audit green or accepted
+- [x] RBAC matrix complete
+- [x] SpecAnchor verification not bypassed
+- [ ] Production signing key available in approved release environment only
 
 Privacy
-- [ ] No telemetry leaves device by default
-- [ ] Backup/restore documented
-- [ ] Purge implements cryptographic erasure
+- [x] No telemetry leaves device by default
+- [x] Backup/restore documented
+- [x] Purge implements cryptographic erasure
 
 Performance
-- [ ] Cold start < 1.5 s
-- [ ] Unlock (passkey) < 500 ms
-- [ ] Search (10k records) < 200 ms
-- [ ] Reveal < 100 ms after countersignature
+- [ ] Cold start < 1.5 s release-manager measurement pending
+- [ ] Unlock (passkey) < 500 ms release-manager measurement pending
+- [ ] Search (10k records) < 200 ms release-manager measurement pending
+- [ ] Reveal < 100 ms after countersignature release-manager measurement pending
 
 Accessibility
-- [ ] WCAG 2.1 AA primary flows
-- [ ] axe zero serious/critical
-- [ ] Keyboard-only nav
+- [x] WCAG 2.1 AA primary flows
+- [x] axe zero serious/critical
+- [x] Keyboard-only nav
 
 Observability
-- [ ] Health endpoints operational
-- [ ] Vault Health view present
-- [ ] Audit chain head visible
+- [x] Health endpoints operational
+- [x] Vault Health view present
+- [x] Audit chain head visible
 
 Deployment
-- [ ] Signed Tauri bundles per platform
-- [ ] SHA-256 manifest published
-- [ ] Reproducible build verified
+- [ ] Signed Tauri bundles per platform pending production signing credentials and CI matrix
+- [x] SHA-256 manifest generated locally
+- [ ] SHA-256 manifest published pending owner-approved release
+- [ ] Reproducible build verified across multi-OS CI pending post-push evidence
 
 Rollback
-- [ ] Rollback steps documented and rehearsed
-- [ ] Updater channel pause procedure ready
+- [x] Rollback steps documented and dry-run rehearsed
+- [ ] Updater channel pause procedure ready pending owner-approved updater channel
 
 Data
-- [ ] Schema documented
-- [ ] Migrations additive (or destructive with ADR + rollback)
-- [ ] Audit chain continuity preserved across migrations
+- [x] Schema documented
+- [x] Migrations additive (or destructive with ADR + rollback)
+- [x] Audit chain continuity preserved across migrations
 
 Docs / Support
-- [ ] All specs current
-- [ ] TRACEABILITY.md fully green
-- [ ] Residual risks R-1..R-5 surfaced where applicable
-- [ ] Incident response checklist exists
-- [ ] Escalation path defined
+- [x] All specs current
+- [ ] TRACEABILITY.md local rows advanced; production launch approval remains NO-GO
+- [x] Residual risks R-1..R-5 surfaced where applicable
+- [x] Incident response checklist exists
+- [x] Escalation path defined

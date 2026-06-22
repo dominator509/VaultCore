@@ -29,6 +29,13 @@
 
 ## Initial ADR Entries
 
+### EP-010: Production Launch Approval Status
+- **Context:** EP-010 local readiness validation passed, but production launch requires owner approval, production signing credentials, release SpecAnchor signing, and multi-OS CI artifact evidence.
+- **Decision:** No production publish or updater-channel activation is approved in this thread. Local readiness evidence may be committed and pushed for CI review; launch remains NO-GO until the owner explicitly approves release-candidate entry and provides the approved release signing path.
+- **Alternatives Considered:** Treat local green checks as release approval (rejected: violates EP-010 owner-approval gate and AGENTS.md production deployment STOP conditions).
+- **Consequences:** The repository can carry an honest readiness packet while preventing accidental publication, signing-key leakage, or updater-channel changes.
+- **Status:** Accepted for EP-010 gatekeeping
+
 ### ADR-0004: Greenfield Workspace Structure
 - **Context:** Architecture.md prescribes a six-layer architecture with a clear Trinity boundary. Greenfield repo must reflect this from day one.
 - **Decision:** Use a Cargo workspace at the root with `crates/core` (domain + shared types), `crates/builder` (binary, brief plaintext), `crates/verifier` (binary, no plaintext), `crates/cli` (admin/offline operations); UI under `app/` with Tauri shell.

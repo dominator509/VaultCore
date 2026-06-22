@@ -1,5 +1,25 @@
 # PRODUCTION_READINESS.md
 
+## Final Readiness Status
+Status: local evidence green; production launch NO-GO.
+
+Last local evidence run: 2026-06-22.
+
+Local commands completed:
+- `./scripts/preflight.sh`
+- `./scripts/verify.sh && cargo nextest run --test invariants && cargo nextest run --test threats`
+- `./scripts/production-readiness-check.sh`
+- `./scripts/build.sh`
+- `./scripts/smoke-test.sh`
+
+External launch blockers:
+- Owner approval to enter release-candidate launch and publish any updater channel is not recorded.
+- Production signing credentials are not present in the local checkout, and must not be committed.
+- Live GitHub Actions multi-OS release matrix evidence has not been collected after pushing the release-readiness commits.
+- Release SpecAnchor signing with the project key remains an owner-controlled offline action.
+
+Recommended default: do not publish. Push the local evidence commits, let CI run, collect owner approval and signing material through the approved release process, then re-run this gate.
+
 ## Definition of Production Readiness
 VaultCore v1 is production-ready only when functional, test, security, privacy, performance, accessibility, observability, deployment, rollback, data, documentation, and support gates are all satisfied; every invariant I-1..I-8 has at least one passing enforcement test; and every threat T-001..T-023 is either mitigated with linked evidence or accepted as a documented residual risk.
 
@@ -85,17 +105,20 @@ Launch only when:
 - All gates G1-A..G3-E passed with linked evidence
 - All invariants I-1..I-8 verified
 - Owner approval recorded
+- Production signing credentials are available only through the approved release environment
+- Multi-OS release CI has produced signed artifacts and `SHA256SUMS.txt`
 
 ## Checklist
-- Functional readiness complete
-- Test readiness complete
-- Security readiness complete
-- Privacy readiness complete
-- Performance readiness complete
-- Accessibility readiness complete
-- Observability readiness complete
-- Deployment readiness complete
-- Rollback readiness complete
-- Data readiness complete
-- Documentation readiness complete
-- Support readiness complete
+- Functional readiness locally verified
+- Test readiness locally verified
+- Security readiness locally verified
+- Privacy readiness locally verified
+- Performance readiness locally evidenced by existing scripted gates; dedicated production benchmarking remains a release-manager review item
+- Accessibility readiness locally verified by the existing axe gate
+- Observability readiness locally verified
+- Deployment readiness locally verified for unsigned local artifacts and SHA-256 manifest
+- Rollback readiness locally documented and dry-run reviewed
+- Data readiness locally verified
+- Documentation readiness locally updated
+- Support readiness locally documented
+- Production launch approval pending
