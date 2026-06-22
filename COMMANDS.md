@@ -20,6 +20,7 @@ Use the wrappers in `scripts/` as the canonical entry points. They forward to th
 Internally:
 - `cargo fetch` for Rust workspace
 - `pnpm install --frozen-lockfile` in `app/`
+- `pnpm exec playwright install chromium` in `app/` for E2E and accessibility tests
 
 ### Preflight
 ```sh

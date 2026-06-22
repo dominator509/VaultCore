@@ -72,11 +72,14 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 ## 13. Surprises & Discoveries
 - Local checks are green, but owner approval, production signing credentials, and live multi-OS CI evidence are not present in the local checkout.
 - `.agent/checklists/production-readiness.md` already existed, so EP-010 uses that checklist as the evidence packet instead of introducing a parallel readiness artifact.
+- After pushing the readiness packet, GitHub CI exposed two setup gaps: shell scripts were committed without executable bits, and Playwright's Chromium browser was not installed by `./scripts/install.sh`.
 
 ## 14. Decision Log
 - Final owner approval is not recorded. Per EP-010 non-goals and AGENTS.md STOP conditions, no production publish, updater-channel activation, or release SpecAnchor signing was performed.
 - `DECISIONS.md` was updated to record the EP-010 NO-GO launch decision without fabricating owner approval.
 - `TRACEABILITY.md` now distinguishes local gate-passed evidence from the production launch gate, which remains pending owner approval and release-signing evidence.
+- `scripts/install.sh` now installs Playwright Chromium because E2E and accessibility tests are part of the canonical verification chain and CI runners do not retain browser binaries.
+- Shell scripts under `scripts/` were marked executable in git so documented `./scripts/*.sh` commands work on Linux and macOS runners.
 
 ## 15. Outcomes & Retrospective
 - Local production-readiness evidence is green through Milestones 1 and 2.

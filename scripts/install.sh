@@ -13,6 +13,7 @@ if [ -f "app/package.json" ]; then
   else
     (cd app && pnpm install --no-frozen-lockfile)
   fi
+  (cd app && pnpm exec playwright install chromium)
 fi
 
 echo "install: ok"
