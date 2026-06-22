@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "fixture_id": "synthetic-vault-v1",
+  "generated_from_seed": "vaultcore-ep-007-fixture-seed",
+  "real_user_data": false,
+  "secrets": [
+    {
+      "id": "01J00000000000000000000001",
+      "type": "API_KEY",
+      "name": "Synthetic CI token",
+      "state": "active",
+      "payload_envelope_hex": "7c6d8c4a45502d3030372d63697068657274657874",
+      "payload_dek_id": "fixture-dek-001",
+      "meta": {
+        "service": "fixture-service",
+        "key_name": "fixture-key",
+        "environment": "test",
+        "labels": ["synthetic", "ep-007"]
+      }
+    },
+    {
+      "id": "01J00000000000000000000002",
+      "type": "NOTE",
+      "name": "Synthetic breakglass note",
+      "state": "archived",
+      "payload_envelope_hex": "65702d3030372d61726368697665642d63697068657274657874",
+      "payload_dek_id": "fixture-dek-002",
+      "meta": {
+        "labels": ["synthetic", "archive"]
+      }
+    }
+  ],
+  "audit": [
+    {
+      "seq": 1,
+      "op": "create_secret",
+      "result": "ok",
+      "target_id": "01J00000000000000000000001"
+    },
+    {
+      "seq": 2,
+      "op": "archive_secret",
+      "result": "ok",
+      "target_id": "01J00000000000000000000002"
+    }
+  ]
+}

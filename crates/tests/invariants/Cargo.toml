@@ -7,9 +7,16 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
+tempfile = "3"
 vaultcore-builder = { path = "../../builder" }
 vaultcore-core = { path = "../../core" }
 vaultcore-verifier = { path = "../../verifier" }
+
+[target.'cfg(unix)'.dependencies]
+rusqlite = "0.32"
+
+[target.'cfg(windows)'.dependencies]
+rusqlite = { version = "0.32", features = ["bundled"] }
 
 [lints]
 workspace = true

@@ -50,6 +50,14 @@ VaultCore tests follow a pyramid with two language layers (Rust + TS) and one cr
 - Every fixed bug with user impact or invariant impact gets a regression test.
 - Regression tests live next to the layer that owned the bug, with a comment linking the issue ID.
 
+## Flaky Test Policy
+- A failing test is treated as a product or test bug until the exact failure mode is isolated.
+- Do not mark tests ignored, increase timeouts, or loosen assertions without recording evidence in the active ExecPlan.
+- First recurrence: rerun the narrowest affected command once and preserve the failing output.
+- Second same-root recurrence: add a deterministic diagnostic or fixture, then rerun the narrowest command.
+- Third same-root recurrence: stop retrying that approach, document the failed hypotheses, and replace timing-sensitive behavior with deterministic control where safe.
+- CI parity requires the same wrapper command used locally; CI-only skips require an ExecPlan decision and a linked follow-up row.
+
 ## Performance Test Rules
 - Cold start to lock screen: < 1.5 s (measured in smoke test).
 - Unlock (passkey path): < 500 ms after user gesture.

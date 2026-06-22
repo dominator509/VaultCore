@@ -4109,6 +4109,8 @@ dependencies = [
 name = "vaultcore-invariants"
 version = "0.1.0"
 dependencies = [
+ "rusqlite",
+ "tempfile",
  "vaultcore-builder",
  "vaultcore-core",
  "vaultcore-verifier",
