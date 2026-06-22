@@ -111,7 +111,7 @@ Internally:
 ./scripts/smoke-test.sh
 ```
 Internally:
-- Boot Builder + Verifier with a temporary SpecAnchor, run scripted unlock + reveal on a fixture vault, verify audit chain integrity, shut down cleanly.
+- Runs Builder and Verifier local observability contract tests that assert `/health/builder`, `/health/verifier`, and `/metrics` exposure without remote network access.
 
 ### Full Verification
 ```sh
@@ -123,7 +123,7 @@ Runs the entire local validation chain.
 ```sh
 ./scripts/production-readiness-check.sh
 ```
-Verifies invariants I-1..I-8 enforcement tests, threat coverage map (T-001..T-023), TRACEABILITY status, signed-artifact presence, and release-gate evidence.
+Verifies invariants I-1..I-8 enforcement tests, threat coverage map (T-001..T-023), TRACEABILITY status, and release-gate evidence.
 
 ### Local Development
 ```sh

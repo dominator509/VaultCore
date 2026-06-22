@@ -27,6 +27,8 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "publisher": "VaultCore",
+    "copyright": "Copyright (c) VaultCore contributors",
     "icon": ["icons/icon.png", "icons/icon.ico"]
   }
 }

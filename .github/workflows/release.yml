@@ -1,0 +1,87 @@
+name: Release Candidate
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["release-candidate"]
+
+permissions:
+  contents: read
+
+jobs:
+  release-build:
+    name: Release build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    env:
+      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+      MACOS_CODESIGN_IDENTITY: ${{ secrets.MACOS_CODESIGN_IDENTITY }}
+      WINDOWS_CODESIGN_PFX: ${{ secrets.WINDOWS_CODESIGN_PFX }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.96.0
+          components: clippy, rustfmt
+
+      - name: Install cargo tools
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-nextest,cargo-deny,cargo-audit
+
+      - name: Install Linux Tauri prerequisites
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: app/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: ./scripts/install.sh
+        shell: bash
+
+      - name: Verify signing secret presence
+        shell: bash
+        run: |
+          test -n "$TAURI_SIGNING_PRIVATE_KEY"
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            test -n "$MACOS_CODESIGN_IDENTITY"
+          fi
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            test -n "$WINDOWS_CODESIGN_PFX"
+          fi
+
+      - name: Verify
+        run: ./scripts/verify.sh
+        shell: bash
+
+      - name: Build release artifacts
+        run: ./scripts/build.sh
+        shell: bash
+
+      - name: Upload artifacts and SHA-256 manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: vaultcore-${{ runner.os }}-release-artifacts
+          path: target/release-artifacts/
+          if-no-files-found: error
