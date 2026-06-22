@@ -4073,8 +4073,10 @@ dependencies = [
 name = "vaultcore-builder"
 version = "0.1.0"
 dependencies = [
+ "argon2",
  "serde",
  "vaultcore-core",
+ "zeroize",
 ]
 
 [[package]]

@@ -7,6 +7,7 @@ use crate::{
         Ack, AuditFilter, AuditViewEntry, ChainStatus, RevealResponse, SecretInput,
         SecretListFilter, SecretPatch, SecretSummary,
     },
+    auth,
     session::{AuthProof, SessionToken},
 };
 
@@ -85,13 +86,7 @@ where
     ///
     /// Returns an auth error if the supplied proof is empty.
     pub fn unlock(&mut self, auth: &AuthProof) -> Result<SessionToken, VaultError> {
-        if auth.method.is_empty() || auth.proof.is_empty() {
-            return Err(VaultError::new(
-                VaultErrorCode::AuthSessionExpired,
-                Some("proof".to_owned()),
-                "unlock proof is required",
-            ));
-        }
+        auth::verify_unlock_proof(auth)?;
         Ok(SessionToken {
             session_id: self.session_id.clone(),
         })
