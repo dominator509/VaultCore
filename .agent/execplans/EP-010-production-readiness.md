@@ -82,8 +82,9 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 - `scripts/install.sh` now installs Playwright Chromium because E2E and accessibility tests are part of the canonical verification chain and CI runners do not retain browser binaries.
 - Shell scripts under `scripts/` were marked executable in git so documented `./scripts/*.sh` commands work on Linux and macOS runners.
 - Multi-OS verify CI evidence is accepted for EP-010 local readiness evidence, while signed release artifact evidence remains pending behind owner approval and production signing credentials.
+- Added `.agent/runbooks/owner-release-signing.md` to make the remaining owner-controlled signing procedure explicit without recording false approval or committing signing material.
 
 ## 15. Outcomes & Retrospective
 - Local production-readiness evidence is green through Milestones 1 and 2.
 - Launch packet is prepared in `PRODUCTION_READINESS.md`, `.agent/checklists/production-readiness.md`, `DECISIONS.md`, and `TRACEABILITY.md`.
-- Production launch remains NO-GO until the owner approves release-candidate entry, provides the approved production signing path, completes release SpecAnchor signing, and produces signed release artifact evidence.
+- Production launch remains NO-GO until the owner approves release-candidate entry, follows `.agent/runbooks/owner-release-signing.md`, provides the approved production signing path, completes release SpecAnchor signing, and produces signed release artifact evidence.

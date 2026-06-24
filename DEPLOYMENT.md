@@ -44,6 +44,8 @@ There is no production server.
 6. Publish bundles + SHA-256 manifest.
 7. Update the updater channel only after manual approval.
 
+The owner-controlled release signing procedure and required evidence are documented in `.agent/runbooks/owner-release-signing.md`.
+
 ## Migration Steps
 - Migrations for the user's vault file run at first launch after an update.
 - Migrations are additive by default; destructive migrations require an ADR + rollback path in `ROLLBACK.md`.

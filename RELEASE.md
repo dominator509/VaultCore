@@ -37,6 +37,8 @@
 - Updater channel publish approved by owner
 - Release notes published
 
+Owner-controlled signing and evidence collection must follow `.agent/runbooks/owner-release-signing.md`.
+
 ## Smoke Tests
 Run `./scripts/smoke-test.sh` against the built binary on each platform after build, before publish.
 
