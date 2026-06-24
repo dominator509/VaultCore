@@ -4,6 +4,7 @@ Status: local evidence green; production launch NO-GO until owner approval, prod
 
 Last local evidence run: 2026-06-22.
 Last multi-OS CI verify run: GitHub Actions run `27940112544` on commit `2adc3051d8a7a511ee28804a7ff5e0b54afd8abd` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)`.
+Follow-up CI guard: commit `8a17078ba409c97f1d8fd910000ad4ef515b09b5` adds a 60-minute bound to the CI verify job after run `28080516394` remained in progress in Windows and Ubuntu `Verify`; use a later completed matrix run as evidence only after GitHub reports all jobs passed.
 
 Gate Evidence
 - [x] G1-A Foundation validation: `./scripts/verify.sh`
@@ -66,6 +67,7 @@ Deployment
 - [x] SHA-256 manifest generated locally
 - [ ] SHA-256 manifest published pending owner-approved release
 - [x] Multi-OS verify CI passed on GitHub Actions run `27940112544`
+- [x] CI verify runtime is bounded by `.github/workflows/ci.yml` `timeout-minutes: 60`
 
 Rollback
 - [x] Rollback steps documented and dry-run rehearsed
