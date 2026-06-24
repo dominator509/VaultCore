@@ -73,7 +73,7 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 - Local checks are green, and multi-OS verify CI is green, but owner approval, production signing credentials, release SpecAnchor signing, and signed release artifact evidence are not present in the local checkout.
 - `.agent/checklists/production-readiness.md` already existed, so EP-010 uses that checklist as the evidence packet instead of introducing a parallel readiness artifact.
 - After pushing the readiness packet, GitHub CI exposed two setup gaps: shell scripts were committed without executable bits, and Playwright's Chromium browser was not installed by `./scripts/install.sh`.
-- GitHub Actions run `27940112544` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)` for commit `2adc3051d8a7a511ee28804a7ff5e0b54afd8abd`; this proves the multi-OS verify gate, not production signing or signed artifact publication.
+- GitHub Actions run `28081322328` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)` for commit `8a17078ba409c97f1d8fd910000ad4ef515b09b5`; this proves the bounded multi-OS verify gate, not production signing or signed artifact publication.
 
 ## 14. Decision Log
 - Final owner approval is not recorded. Per EP-010 non-goals and AGENTS.md STOP conditions, no production publish, updater-channel activation, or release SpecAnchor signing was performed.

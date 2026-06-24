@@ -4,8 +4,8 @@
 Status: local evidence green; production launch NO-GO.
 
 Last local evidence run: 2026-06-22.
-Last multi-OS CI verify run: GitHub Actions run `27940112544` on commit `2adc3051d8a7a511ee28804a7ff5e0b54afd8abd` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)`.
-Follow-up CI guard: commit `8a17078ba409c97f1d8fd910000ad4ef515b09b5` adds a 60-minute bound to the CI verify job after run `28080516394` remained in progress in Windows and Ubuntu `Verify`; do not treat the follow-up run as green evidence until GitHub reports all matrix jobs passed.
+Last multi-OS CI verify run: GitHub Actions run `28081322328` on commit `8a17078ba409c97f1d8fd910000ad4ef515b09b5` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)`.
+CI runtime guard: `.github/workflows/ci.yml` bounds the verify matrix with `timeout-minutes: 60` so readiness evidence cannot hang indefinitely.
 
 Local commands completed:
 - `./scripts/preflight.sh`
