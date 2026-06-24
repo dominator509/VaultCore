@@ -83,6 +83,7 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 - Shell scripts under `scripts/` were marked executable in git so documented `./scripts/*.sh` commands work on Linux and macOS runners.
 - Multi-OS verify CI evidence is accepted for EP-010 local readiness evidence, while signed release artifact evidence remains pending behind owner approval and production signing credentials.
 - Added `.agent/runbooks/owner-release-signing.md` to make the remaining owner-controlled signing procedure explicit without recording false approval or committing signing material.
+- Added a 60-minute timeout to `.github/workflows/ci.yml` because GitHub Actions run `28080516394` stayed in the Windows and Ubuntu `Verify` steps without logs; this is a launch-readiness CI guard, not a scope expansion.
 
 ## 15. Outcomes & Retrospective
 - Local production-readiness evidence is green through Milestones 1 and 2.
