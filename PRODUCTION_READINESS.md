@@ -1,7 +1,7 @@
 # PRODUCTION_READINESS.md
 
 ## Final Readiness Status
-Status: local evidence green; production launch NO-GO.
+Status: local evidence green; owner approval recorded; production launch NO-GO pending signing credentials and release evidence.
 
 Last local evidence run: 2026-06-22.
 Last multi-OS CI verify run: GitHub Actions run `28081322328` on commit `8a17078ba409c97f1d8fd910000ad4ef515b09b5` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)`.
@@ -15,12 +15,12 @@ Local commands completed:
 - `./scripts/smoke-test.sh`
 
 External launch blockers:
-- Owner approval to enter release-candidate launch and publish any updater channel is not recorded.
-- Production signing credentials are not present in the local checkout, and must not be committed.
-- Signed release artifact matrix evidence has not been collected because production signing and owner approval are still pending.
+- Owner approval was recorded on 2026-06-24 for release-candidate gate entry, production signing credential use, release SpecAnchor signing, signed artifact evidence collection, and platform smoke/signature evidence collection.
+- Production signing credentials are not present in the local checkout, must not be committed, and `gh secret list --repo dominator509/VaultCore` returned no configured repository secrets.
+- Signed release artifact matrix evidence has not been collected because production signing credentials are still pending.
 - Release SpecAnchor signing with the project key remains an owner-controlled offline action.
 
-Recommended default: do not publish. Keep the successful CI verify evidence, follow `.agent/runbooks/owner-release-signing.md`, collect owner approval and signing material through the approved release process, run the signed release artifact matrix, then re-run this gate.
+Recommended default: do not publish. Keep the successful CI verify evidence, follow `.agent/runbooks/owner-release-signing.md`, add signing material through the approved release process, run the signed release artifact matrix, then re-run this gate.
 
 ## Definition of Production Readiness
 VaultCore v1 is production-ready only when functional, test, security, privacy, performance, accessibility, observability, deployment, rollback, data, documentation, and support gates are all satisfied; every invariant I-1..I-8 has at least one passing enforcement test; and every threat T-001..T-023 is either mitigated with linked evidence or accepted as a documented residual risk.
@@ -123,4 +123,4 @@ Launch only when:
 - Data readiness locally verified
 - Documentation readiness locally updated
 - Support readiness locally documented
-- Production launch approval pending
+- Owner approval recorded; signing credentials and release evidence pending

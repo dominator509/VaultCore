@@ -30,9 +30,9 @@
 ## Initial ADR Entries
 
 ### EP-010: Production Launch Approval Status
-- **Context:** EP-010 local readiness validation passed, and GitHub Actions run `27940112544` passed the multi-OS verify gate for commit `2adc3051d8a7a511ee28804a7ff5e0b54afd8abd`; production launch still requires owner approval, production signing credentials, release SpecAnchor signing, and signed release artifact evidence.
-- **Decision:** No production publish or updater-channel activation is approved in this thread. Local readiness and multi-OS verify evidence may be committed and pushed for review; launch remains NO-GO until the owner explicitly approves release-candidate entry and provides the approved release signing path.
-- **Alternatives Considered:** Treat local green checks as release approval (rejected: violates EP-010 owner-approval gate and AGENTS.md production deployment STOP conditions).
+- **Context:** EP-010 local readiness validation passed, and GitHub Actions run `28081322328` passed the bounded multi-OS verify gate for commit `8a17078ba409c97f1d8fd910000ad4ef515b09b5`; production launch still requires production signing credentials, release SpecAnchor signing, and signed release artifact evidence.
+- **Decision:** On 2026-06-24, the owner explicitly approved release-candidate gate entry, production signing credential use, release SpecAnchor signing, signed artifact evidence collection, and platform smoke/signature evidence collection. Local readiness and multi-OS verify evidence may be committed and pushed for review; launch remains NO-GO until the required signing credentials exist in the approved release environment and the release evidence is collected.
+- **Alternatives Considered:** Treat owner approval plus local green checks as production launch completion (rejected: signing credentials, release SpecAnchor signing, signed artifacts, and smoke/signature evidence are still required by EP-010).
 - **Consequences:** The repository can carry an honest readiness packet while preventing accidental publication, signing-key leakage, or updater-channel changes.
 - **Status:** Accepted for EP-010 gatekeeping
 

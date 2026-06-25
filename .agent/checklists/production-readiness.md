@@ -1,6 +1,6 @@
 # Production Readiness Checklist (VaultCore)
 
-Status: local evidence green; production launch NO-GO until owner approval, production signing credentials, release SpecAnchor signing, and signed release artifact evidence are present.
+Status: local evidence green; owner approval recorded; production launch NO-GO until production signing credentials, release SpecAnchor signing, and signed release artifact evidence are present.
 
 Last local evidence run: 2026-06-22.
 Last multi-OS CI verify run: GitHub Actions run `28081322328` on commit `8a17078ba409c97f1d8fd910000ad4ef515b09b5` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)`.
@@ -20,7 +20,7 @@ Gate Evidence
 - [x] G3-B Observability and health: `./scripts/smoke-test.sh`
 - [x] G3-C Local release artifacts and manifest: `./scripts/build.sh`
 - [x] G3-D Threat coverage: `cargo nextest run --test threats`
-- [ ] G3-E Production launch approval: pending owner approval, signing credentials, release SpecAnchor signing, and signed release artifact evidence
+- [ ] G3-E Production launch approval: owner approval recorded 2026-06-24; pending signing credentials, release SpecAnchor signing, and signed release artifact evidence
 
 Functional
 - [x] All eight secret types supported
@@ -80,7 +80,7 @@ Data
 
 Docs / Support
 - [x] All specs current
-- [ ] TRACEABILITY.md local rows advanced; production launch approval remains NO-GO
+- [ ] TRACEABILITY.md local rows advanced; owner approval recorded, production signing evidence remains NO-GO
 - [x] Residual risks R-1..R-5 surfaced where applicable
 - [x] Incident response checklist exists
 - [x] Escalation path defined

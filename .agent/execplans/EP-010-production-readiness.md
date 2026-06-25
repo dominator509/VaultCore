@@ -67,18 +67,19 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 ## 12. Progress
 - [x] Milestone 1 complete (`./scripts/verify.sh && cargo nextest run --test invariants && cargo nextest run --test threats` passed)
 - [x] Milestone 2 complete (`./scripts/production-readiness-check.sh` passed)
-- [ ] Milestone 3 blocked on owner approval, production signing credentials, release SpecAnchor signing, and signed release artifact evidence
+- [ ] Milestone 3 owner approval recorded; blocked on production signing credentials, release SpecAnchor signing, and signed release artifact evidence
 
 ## 13. Surprises & Discoveries
-- Local checks are green, and multi-OS verify CI is green, but owner approval, production signing credentials, release SpecAnchor signing, and signed release artifact evidence are not present in the local checkout.
+- Local checks are green, multi-OS verify CI is green, and owner approval is recorded, but production signing credentials, release SpecAnchor signing, and signed release artifact evidence are not present in the local checkout.
 - `.agent/checklists/production-readiness.md` already existed, so EP-010 uses that checklist as the evidence packet instead of introducing a parallel readiness artifact.
 - After pushing the readiness packet, GitHub CI exposed two setup gaps: shell scripts were committed without executable bits, and Playwright's Chromium browser was not installed by `./scripts/install.sh`.
 - GitHub Actions run `28081322328` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)` for commit `8a17078ba409c97f1d8fd910000ad4ef515b09b5`; this proves the bounded multi-OS verify gate, not production signing or signed artifact publication.
+- On 2026-06-24 the owner explicitly approved release-candidate gate entry, production signing credential use, release SpecAnchor signing, signed artifact evidence collection, and platform smoke/signature evidence collection, but `gh secret list --repo dominator509/VaultCore` returned no configured repository secrets.
 
 ## 14. Decision Log
-- Final owner approval is not recorded. Per EP-010 non-goals and AGENTS.md STOP conditions, no production publish, updater-channel activation, or release SpecAnchor signing was performed.
+- Final owner approval is recorded in `DECISIONS.md`. Per AGENTS.md STOP conditions, no production publish, updater-channel activation, or release SpecAnchor signing was performed because the required signing credentials and SpecAnchor production signing key are not available in the approved release environment.
 - `DECISIONS.md` was updated to record the EP-010 NO-GO launch decision without fabricating owner approval.
-- `TRACEABILITY.md` now distinguishes local gate-passed evidence from the production launch gate, which remains pending owner approval and release-signing evidence.
+- `TRACEABILITY.md` now distinguishes local gate-passed evidence and owner approval from the production launch gate, which remains pending release-signing evidence.
 - `scripts/install.sh` now installs Playwright Chromium because E2E and accessibility tests are part of the canonical verification chain and CI runners do not retain browser binaries.
 - Shell scripts under `scripts/` were marked executable in git so documented `./scripts/*.sh` commands work on Linux and macOS runners.
 - Multi-OS verify CI evidence is accepted for EP-010 local readiness evidence, while signed release artifact evidence remains pending behind owner approval and production signing credentials.
@@ -88,4 +89,4 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 ## 15. Outcomes & Retrospective
 - Local production-readiness evidence is green through Milestones 1 and 2.
 - Launch packet is prepared in `PRODUCTION_READINESS.md`, `.agent/checklists/production-readiness.md`, `DECISIONS.md`, and `TRACEABILITY.md`.
-- Production launch remains NO-GO until the owner approves release-candidate entry, follows `.agent/runbooks/owner-release-signing.md`, provides the approved production signing path, completes release SpecAnchor signing, and produces signed release artifact evidence.
+- Production launch remains NO-GO until the owner follows `.agent/runbooks/owner-release-signing.md`, provides the approved production signing path, completes release SpecAnchor signing, and produces signed release artifact evidence.
