@@ -87,6 +87,7 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 - Added `.agent/runbooks/owner-release-signing.md` to make the remaining owner-controlled signing procedure explicit without recording false approval or committing signing material.
 - Added a 60-minute timeout to `.github/workflows/ci.yml` because GitHub Actions run `28080516394` stayed in the Windows and Ubuntu `Verify` steps without logs; this is a launch-readiness CI guard, not a scope expansion.
 - Updated `.agent/runbooks/owner-release-signing.md` to state that private key generation and GitHub secret upload are owner-run local steps, with a required post-upload `gh secret list` name check.
+- Hardened `.github/workflows/release.yml` so the release matrix is also bounded to 60 minutes and fails fast if `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` is absent.
 
 ## 15. Outcomes & Retrospective
 - Local production-readiness evidence is green through Milestones 1 and 2.
