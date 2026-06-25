@@ -75,6 +75,7 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 - After pushing the readiness packet, GitHub CI exposed two setup gaps: shell scripts were committed without executable bits, and Playwright's Chromium browser was not installed by `./scripts/install.sh`.
 - GitHub Actions run `28081322328` passed `Verify (windows-latest)`, `Verify (macos-latest)`, and `Verify (ubuntu-latest)` for commit `8a17078ba409c97f1d8fd910000ad4ef515b09b5`; this proves the bounded multi-OS verify gate, not production signing or signed artifact publication.
 - On 2026-06-24 the owner explicitly approved release-candidate gate entry, production signing credential use, release SpecAnchor signing, signed artifact evidence collection, and platform smoke/signature evidence collection, but `gh secret list --repo dominator509/VaultCore` returned no configured repository secrets.
+- The environment refused automated generation/upload of private Tauri signing material to GitHub as too risky. The owner runbook now makes private key generation and GitHub secret upload an owner-run local step.
 
 ## 14. Decision Log
 - Final owner approval is recorded in `DECISIONS.md`. Per AGENTS.md STOP conditions, no production publish, updater-channel activation, or release SpecAnchor signing was performed because the required signing credentials and SpecAnchor production signing key are not available in the approved release environment.
@@ -85,6 +86,7 @@ After EP-009. Reads PRODUCTION_READINESS.md, SPEC-008.
 - Multi-OS verify CI evidence is accepted for EP-010 local readiness evidence, while signed release artifact evidence remains pending behind owner approval and production signing credentials.
 - Added `.agent/runbooks/owner-release-signing.md` to make the remaining owner-controlled signing procedure explicit without recording false approval or committing signing material.
 - Added a 60-minute timeout to `.github/workflows/ci.yml` because GitHub Actions run `28080516394` stayed in the Windows and Ubuntu `Verify` steps without logs; this is a launch-readiness CI guard, not a scope expansion.
+- Updated `.agent/runbooks/owner-release-signing.md` to state that private key generation and GitHub secret upload are owner-run local steps, with a required post-upload `gh secret list` name check.
 
 ## 15. Outcomes & Retrospective
 - Local production-readiness evidence is green through Milestones 1 and 2.

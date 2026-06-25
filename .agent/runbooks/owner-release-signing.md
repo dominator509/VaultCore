@@ -8,6 +8,7 @@ This runbook is the owner-controlled procedure for clearing the EP-010 productio
 - The owner has approved entry into the release-candidate phase.
 - Required release credentials are available only through the approved secret manager or GitHub Actions secret store.
 - No production signing key, platform certificate, PFX password, or SpecAnchor private key is committed to this repository or pasted into issue comments, chat, logs, or local plaintext files.
+- Signing-key generation and GitHub secret upload must be performed by the owner or release manager on a trusted local machine. Do not delegate private key generation or secret upload to an automated coding agent.
 
 ## Required Owner Evidence
 - Owner approval text for release-candidate entry.
@@ -63,6 +64,21 @@ For Windows PFX material, use base64 content from the approved certificate file:
 ```powershell
 [Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\path\to\windows-codesign.pfx")) |
   gh secret set WINDOWS_CODESIGN_PFX -R dominator509/VaultCore
+```
+
+Confirm secret names without printing values:
+
+```powershell
+gh secret list --repo dominator509/VaultCore
+```
+
+Expected required names:
+
+```text
+TAURI_SIGNING_PRIVATE_KEY
+TAURI_SIGNING_PRIVATE_KEY_PASSWORD
+MACOS_CODESIGN_IDENTITY
+WINDOWS_CODESIGN_PFX
 ```
 
 Create or fast-forward the `release-candidate` branch:
@@ -133,4 +149,3 @@ EP-010 `G3-E` can be advanced only when all of these are true:
 - Platform code signatures are verified.
 - Smoke tests pass against the released binaries.
 - Updater-channel publication is explicitly approved by the owner, if publication occurs.
-
